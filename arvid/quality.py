@@ -24,13 +24,13 @@ class Closest:
 
 def get_quality(opts: list[int], q: Quality) -> int:
     match q:
-        case Min():
+        case Min() if opts:
             return min(opts)
-        case Max():
+        case Max() if opts:
             return max(opts)
         case Exact(val) if val in opts:
             return val
-        case Closest(val):
+        case Closest(val) if opts:
             return min((abs(o - val), o) for o in opts)[1]
         case _:
             raise ValueError
